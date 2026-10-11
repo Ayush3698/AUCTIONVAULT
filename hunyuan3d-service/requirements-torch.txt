@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# Machine-learning dependencies for the local Hunyuan3D service.
+#
+# `requirements.txt` only covers the HTTP layer (fastapi/uvicorn/pillow) so it
+# can be installed without pulling in torch. This file pins the heavy runtime
+# that `server.py` actually needs, verified on this machine:
+#
+#   Windows 11, Python 3.13.2, NVIDIA RTX 2050 (4 GB VRAM),
+#   driver 581.83 (CUDA 13.0), torch 2.14.0+cu130
+#
+# Install into the SAME virtual environment as the service:
+#
+#   cd hunyuan3d-service
+#   python -m venv .venv
+#   .\.venv\Scripts\python.exe -m pip install --upgrade pip
+#   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+#   .\.venv\Scripts\python.exe -m pip install -r requirements-torch.txt
+#
+#   # the official model code itself (provides the `hy3dgen` package):
+#   git clone https://github.com/Tencent-Hunyuan/Hunyuan3D-2
+#   cd Hunyuan3D-2
+#   ..\.venv\Scripts\python.exe -m pip install -r requirements.txt
+#   ..\.venv\Scripts\python.exe -m pip install -e .
+#   cd ..
+#
+# IMPORTANT: always start the service with `.\.venv\Scripts\python.exe server.py`
+# (or run `start_hunyuan3d.bat`). A plain `python server.py` can pick up the
+# system interpreter, which has no torch, and every request then fails with
+# DEPENDENCIES_MISSING.
+# ---------------------------------------------------------------------------
+
+# Accelerator. The index URL must match the installed NVIDIA driver: this
+# machine's driver reports CUDA 13.0, so the cu130 build is the right one.
+# For a CPU-only machine use:
+#   torch==2.14.0+cpu  torchvision==0.29.0+cpu
+#   --index-url https://download.pytorch.org/whl/cpu
+torch==2.14.0+cu130
+torchvision==0.29.0+cu130
+
+# Hunyuan3D-2 inference stack (pins match Hunyuan3D-2/requirements.txt).
+accelerate==1.15.0
+diffusers==0.40.0
+transformers==5.17.0
+safetensors==0.8.0
+huggingface_hub==1.32.0
+einops==0.8.2
+omegaconf==2.3.1
+
+# Mesh processing / export.
+trimesh==5.1.0
+pymeshlab==2025.7.post1
+pygltflib==1.16.5
+xatlas==0.0.11
+
+# Background removal (used before every shape generation).
+rembg==2.0.85
+onnxruntime==1.30.0
+opencv-python==5.0.0.93
+
+# NOTE: `pip install numpy<2` from older Hunyuan3D-2 instructions is NOT needed
+# for this checkout - the verified environment above runs on numpy 2.5.2.

@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# Local Hunyuan3D service - HTTP layer dependencies.
+#
+# The heavy machine-learning dependencies (torch, diffusers, trimesh, rembg,
+# hy3dgen, ...) come from the official Hunyuan3D-2 repository and are NOT
+# listed here so this file can be installed independently. See README.md for
+# the full two-step environment setup:
+#
+#   Step 1 (this service):
+#     python -m venv .venv
+#     .venv\Scripts\activate        (Windows)
+#     pip install -r requirements.txt
+#
+#   Step 2 (Hunyuan3D models - same venv):
+#     git clone https://github.com/Tencent-Hunyuan/Hunyuan3D-2
+#     cd Hunyuan3D-2
+#     pip install -r requirements.txt
+#     pip install -e .
+#     cd ..
+#
+#   Step 3 (accelerator + verified ML pins, same venv):
+#     pip install -r requirements-torch.txt
+#
+#   Then run:  .\.venv\Scripts\python.exe server.py   (or start_hunyuan3d.bat)
+# ---------------------------------------------------------------------------
+
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+pillow>=10.3

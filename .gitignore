@@ -1,0 +1,78 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# generated 3D models (produced by the local Hunyuan3D service)
+/public/models/
+
+# local Hunyuan3D service artifacts
+/hunyuan3d-service/.venv/
+/hunyuan3d-service/outputs/
+/hunyuan3d-service/Hunyuan3D-2/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Temporary development files
+*.log
+dev-*.txt
+.devpid
+fetch_check.glb
+taskid.txt
+*.tsbuildinfo
+
+# Python and Hunyuan3D local environment
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+hunyuan3d-service/outputs/
